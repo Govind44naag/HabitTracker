@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
       const token = localStorage.getItem('token');
       if (token) {
         try {
-          const response = await axios.get('/api/auth/me');
+          const response = await axios.get(`${process.env.BACKEND_URL}/api/auth/me`);
           setUser(response.data.user);
         } catch (error) {
           localStorage.removeItem('token');
@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post('/api/auth/login', { email, password });
+      const response = await axios.post(`${process.env.BACKEND_URL}/api/auth/login`, { email, password });
       const { token, user } = response.data;
       
       localStorage.setItem('token', token);
@@ -62,7 +62,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (username, email, password) => {
     try {
-      const response = await axios.post('/api/auth/register', { username, email, password });
+      const response = await axios.post(`${process.env.BACKEND_URL}/api/auth/register`, { username, email, password });
       const { token, user } = response.data;
       
       localStorage.setItem('token', token);

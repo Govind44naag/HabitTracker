@@ -16,8 +16,8 @@ const Profile = () => {
   const fetchProfileData = async () => {
     try {
       const [statsResponse, checkInsResponse] = await Promise.all([
-        axios.get('/api/habits/stats'),
-        axios.get('/api/checkins/recent?limit=10')
+        axios.get(`${process.env.BACKEND_URL}/api/habits/stats`),
+        axios.get(`${process.env.BACKEND_URL}/api/checkins/recent?limit=10`)
       ]);
       
       setStats(statsResponse.data);

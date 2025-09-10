@@ -21,7 +21,7 @@ const Social = () => {
   const fetchFeed = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('/api/users/feed');
+      const response = await axios.get(`${process.env.BACKEND_URL}/api/users/feed`);
       setFeed(response.data);
     } catch (error) {
       setError('Failed to load activity feed');
@@ -34,7 +34,7 @@ const Social = () => {
   const fetchFollowing = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('/api/users/following');
+      const response = await axios.get(`${process.env.BACKEND_URL}/api/users/following`);
       setFollowing(response.data);
     } catch (error) {
       setError('Failed to load following list');
@@ -51,7 +51,7 @@ const Social = () => {
     }
 
     try {
-      const response = await axios.get(`/api/users/search?q=${encodeURIComponent(query)}`);
+      const response = await axios.get(`${process.env.BACKEND_URL}/api/users/search?q=${encodeURIComponent(query)}`);
       setSearchResults(response.data);
     } catch (error) {
       console.error('Error searching users:', error);
@@ -60,7 +60,7 @@ const Social = () => {
 
   const handleFollow = async (userId) => {
     try {
-      await axios.post(`/api/users/follow/${userId}`);
+      await axios.post(`${process.env.BACKEND_URL}/api/users/follow/${userId}`);
       setSearchResults(searchResults.filter(user => user._id !== userId));
       if (activeTab === 'following') {
         fetchFollowing();
@@ -72,7 +72,7 @@ const Social = () => {
 
   const handleUnfollow = async (userId) => {
     try {
-      await axios.delete(`/api/users/follow/${userId}`);
+      await axios.delete(`${process.env.BACKEND_URL}/api/users/follow/${userId}`);
       setFollowing(following.filter(user => user._id !== userId));
       if (activeTab === 'feed') {
         fetchFeed();

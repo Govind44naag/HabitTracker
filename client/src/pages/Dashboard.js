@@ -15,7 +15,7 @@ const Dashboard = () => {
 
   const fetchHabits = async () => {
     try {
-      const response = await axios.get('/api/habits');
+      const response = await axios.get(`${process.env.BACKEND_URL}/api/habits`);
       setHabits(response.data);
     } catch (error) {
       setError('Failed to load habits');
@@ -27,7 +27,7 @@ const Dashboard = () => {
 
   const fetchStats = async () => {
     try {
-      const response = await axios.get('/api/habits/stats');
+      const response = await axios.get(`${process.env.BACKEND_URL}/api/habits/stats`);
       setStats(response.data);
     } catch (error) {
       console.error('Error fetching stats:', error);
@@ -36,7 +36,7 @@ const Dashboard = () => {
 
   const handleCheckIn = async (habitId) => {
     try {
-      await axios.post('/api/checkins', { habitId });
+      await axios.post(`${process.env.BACKEND_URL}/api/checkins`, { habitId });
       
       // Update local state
       setHabits(habits.map(habit => 

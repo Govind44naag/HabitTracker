@@ -20,7 +20,7 @@ const Habits = () => {
 
   const fetchHabits = async () => {
     try {
-      const response = await axios.get('/api/habits');
+      const response = await axios.get(`${process.env.BACKEND_URL}/api/habits`);
       setHabits(response.data);
     } catch (error) {
       setError('Failed to load habits');
@@ -36,14 +36,14 @@ const Habits = () => {
 
     try {
       if (editingHabit) {
-        await axios.put(`/api/habits/${editingHabit._id}`, formData);
+        await axios.put(`${process.env.BACKEND_URL}/api/habits/${editingHabit._id}`, formData);
         setHabits(habits.map(habit => 
           habit._id === editingHabit._id 
             ? { ...habit, ...formData }
             : habit
         ));
       } else {
-        const response = await axios.post('/api/habits', formData);
+        const response = await axios.post(`${process.env.BACKEND_URL}/api/habits`, formData);
         setHabits([response.data, ...habits]);
       }
       
@@ -70,7 +70,7 @@ const Habits = () => {
     }
 
     try {
-      await axios.delete(`/api/habits/${habitId}`);
+      await axios.delete(`${process.env.BACKEND_URL}/api/habits/${habitId}`);
       setHabits(habits.filter(habit => habit._id !== habitId));
     } catch (error) {
       setError('Failed to delete habit');
